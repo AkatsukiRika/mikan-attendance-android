@@ -1,0 +1,29 @@
+<resources>
+    <string name="app_name">MikanAttendance</string>
+    <string name="app_title">Mikan Attendance System</string>
+    <string name="username">Username</string>
+    <string name="username_input">Input your username</string>
+    <string name="password">Password</string>
+    <string name="password_input">Input your password</string>
+    <string name="login_btn">Login</string>
+    <string name="delete_btn">Delete</string>
+    <string name="edit_btn">Edit</string>
+    <string name="save_btn">Save</string>
+    <string name="add_btn">Add</string>
+    <!-- Info -->
+    <string name="id">ID</string>
+    <string name="real_name">Real Name</string>
+    <string name="user_pass">Password</string>
+    <string name="phone">Phone</string>
+    <string name="email">E-mail</string>
+    <string name="user_type">User Type</string>
+    <!-- User Type -->
+    <string name="type_pm">PM</string>
+    <string name="type_hr">HR</string>
+    <string name="type_sales">Sales</string>
+    <string name="type_others">Others</string>
+    <string name="readme">
+        This system is only available for use inside companies.
+        Please contact the administrator of your company for registration.
+    </string>
+</resources>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">蜜柑考勤系统</string>
+    <string name="app_title">蜜柑考勤系统</string>
+    <string name="username">用户名</string>
+    <string name="username_input">请输入用户名</string>
+    <string name="password">密码</string>
+    <string name="password_input">请输入密码</string>
+    <string name="login_btn">登录</string>
+    <string name="delete_btn">删除</string>
+    <string name="edit_btn">编辑</string>
+    <string name="save_btn">保存</string>
+    <string name="add_btn">新增</string>
+    <!-- Info -->
+    <string name="id">ID</string>
+    <string name="real_name">真实姓名</string>
+    <string name="user_pass">密码</string>
+    <string name="phone">手机号码</string>
+    <string name="email">电子邮箱</string>
+    <string name="user_type">用户类型</string>
+    <!-- User Type -->
+    <string name="type_pm">项目经理</string>
+    <string name="type_hr">人事</string>
+    <string name="type_sales">销售</string>
+    <string name="type_others">普通员工</string>
+    <string name="readme">
+        本系统仅限公司内部使用。
+        若需注册，请联系贵公司的管理人员！
+    </string>
+</resources>
