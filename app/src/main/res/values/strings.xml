@@ -12,11 +12,11 @@
     <string name="add_btn">Add</string>
     <!-- Info -->
     <string name="id">ID</string>
-    <string name="real_name">Real Name</string>
+    <string name="real_name">Name</string>
     <string name="user_pass">Password</string>
     <string name="phone">Phone</string>
     <string name="email">E-mail</string>
-    <string name="user_type">User Type</string>
+    <string name="user_type">Type</string>
     <!-- User Type -->
     <string name="type_pm">PM</string>
     <string name="type_hr">HR</string>
