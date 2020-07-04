@@ -53,12 +53,12 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:layout_marginStart="10sp"
-                android:text="@string/pay_day"
+                android:text="@string/attendance_time"
                 android:textSize="20sp"
                 android:layout_marginLeft="10sp" />
 
             <EditText
-                android:id="@+id/payDayEdit"
+                android:id="@+id/atdTimeEdit"
                 android:layout_width="0sp"
                 android:layout_height="wrap_content"
                 android:layout_weight="3"
@@ -66,7 +66,7 @@
                 android:layout_marginEnd="10sp"
                 android:layout_marginRight="10sp"
                 android:inputType="textPersonName"
-                android:hint="@string/pay_day"
+                android:hint="@string/attendance_time"
                 android:textSize="20sp"/>
         </LinearLayout>
 
@@ -81,21 +81,85 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:layout_marginStart="10sp"
-                android:text="@string/salary"
+                android:text="@string/attendance_status"
                 android:textSize="20sp"
                 android:layout_marginLeft="10sp" />
 
-            <EditText
-                android:id="@+id/salaryEdit"
+            <RadioGroup
+                android:id="@+id/atdStatus"
+                android:layout_width="0sp"
+                android:layout_weight="3"
+                android:layout_height="wrap_content">
+
+                <RadioButton
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="20sp"
+                    android:text="@string/status_on_time"
+                    android:layout_marginStart="-5sp"
+                    android:layout_marginLeft="-5sp">
+                </RadioButton>
+
+                <RadioButton
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="20sp"
+                    android:text="@string/status_late"
+                    android:layout_marginStart="-5sp"
+                    android:layout_marginLeft="-5sp">
+                </RadioButton>
+
+                <RadioButton
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="20sp"
+                    android:text="@string/status_out"
+                    android:layout_marginStart="-5sp"
+                    android:layout_marginLeft="-5sp">
+                </RadioButton>
+            </RadioGroup>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/textView5"
                 android:layout_width="0sp"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginStart="10sp"
+                android:text="@string/attendance_type"
+                android:textSize="20sp"
+                android:layout_marginLeft="10sp" />
+
+            <RadioGroup
+                android:id="@+id/atdType"
+                android:layout_width="0sp"
                 android:layout_weight="3"
-                android:ems="10"
-                android:layout_marginEnd="10sp"
-                android:layout_marginRight="10sp"
-                android:inputType="textPersonName"
-                android:hint="@string/salary"
-                android:textSize="20sp"/>
+                android:layout_height="wrap_content"
+                >
+
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="20sp"
+                    android:text="@string/type_on_work"
+                    android:layout_marginStart="-5sp"
+                    android:layout_marginLeft="-5sp">
+                </RadioButton>
+
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="20sp"
+                    android:text="@string/type_off_work"
+                    android:layout_marginStart="-5sp"
+                    android:layout_marginLeft="-5sp">
+                </RadioButton>
+            </RadioGroup>
         </LinearLayout>
 
         <LinearLayout

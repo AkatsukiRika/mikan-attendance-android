@@ -88,6 +88,7 @@ public class SelectActivity extends Activity implements AdapterView.OnItemClickL
         } else if (userType.equals("PM")) {
             switch (position) {
                 case 0: intent = new Intent(getApplication(), AttendanceActivity.class); break;
+                case 1: salaryAdd(token); direct = true; break;
                 default: break;
             }
         } else if (userType.equals("SALES")) {
@@ -106,7 +107,7 @@ public class SelectActivity extends Activity implements AdapterView.OnItemClickL
         }
     }
 
-    public void orderAdd(String token) {
+    private void orderAdd(String token) {
         // 获取JWTToken
         token = getIntent().getStringExtra("TOKEN");
 
@@ -114,6 +115,17 @@ public class SelectActivity extends Activity implements AdapterView.OnItemClickL
         Intent intent = new Intent(getApplication(), OrderForm.class);
         intent.putExtra("TOKEN", token);
         intent.putExtra("USER_ID", BaseConfigurations.userId);
+        intent.putExtra("IS_EDIT", false);
+        startActivity(intent);
+    }
+
+    private void salaryAdd(String token) {
+        // 获取JWTToken
+        token = getIntent().getStringExtra("TOKEN");
+
+        // 放入参数
+        Intent intent = new Intent(getApplication(), SalaryForm.class);
+        intent.putExtra("TOKEN", token);
         intent.putExtra("IS_EDIT", false);
         startActivity(intent);
     }

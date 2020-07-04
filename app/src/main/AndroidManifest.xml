@@ -30,6 +30,7 @@
         <activity android:name=".activity.OrderForm" />
         <activity android:name=".activity.SalaryActivity" />
         <activity android:name=".activity.SalaryForm" />
+        <activity android:name=".activity.AttendanceList" />
     </application>
 
 </manifest>
