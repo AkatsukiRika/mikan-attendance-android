@@ -23,6 +23,18 @@
     <string name="type_hr">人事</string>
     <string name="type_sales">销售</string>
     <string name="type_others">普通员工</string>
+    <!-- Order -->
+    <string name="user_id">用户ID</string>
+    <string name="order_side">订购方</string>
+    <string name="product">订单商品</string>
+    <string name="submit_date">提交日期</string>
+    <string name="select_submit">选择提交日期</string>
+    <string name="end_date">截止日期</string>
+    <string name="select_end">选择截止日期</string>
+    <string name="remark">备注</string>
+    <!-- Salary -->
+    <string name="pay_day">结算日期</string>
+    <string name="salary">工资</string>
     <string name="readme">
         本系统仅限公司内部使用。
         若需注册，请联系贵公司的管理人员！

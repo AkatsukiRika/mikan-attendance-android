@@ -87,6 +87,8 @@ public class MainActivity extends AppCompatActivity {
                     token = response.getData().toString();
                     Log.i("Login#JWTToken", token);
                     userQuery(Integer.parseInt(username));
+                    // 将目前已登录的用户名记载到全局
+                    BaseConfigurations.userId = user.getId();
                 }
             }
 

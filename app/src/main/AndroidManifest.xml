@@ -26,6 +26,10 @@
         <activity android:name=".activity.InfoForm" />
         <activity android:name=".activity.SuggestActivity" />
         <activity android:name=".activity.AttendanceActivity" />
+        <activity android:name=".activity.OrderActivity" />
+        <activity android:name=".activity.OrderForm" />
+        <activity android:name=".activity.SalaryActivity" />
+        <activity android:name=".activity.SalaryForm" />
     </application>
 
 </manifest>

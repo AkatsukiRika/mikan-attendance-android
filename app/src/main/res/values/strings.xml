@@ -22,6 +22,18 @@
     <string name="type_hr">HR</string>
     <string name="type_sales">Sales</string>
     <string name="type_others">Others</string>
+    <!-- Order -->
+    <string name="user_id">User ID</string>
+    <string name="order_side">Order Side</string>
+    <string name="product">Product</string>
+    <string name="submit_date">Submit</string>
+    <string name="select_submit">Select submit date</string>
+    <string name="end_date">End</string>
+    <string name="select_end">Select end date</string>
+    <string name="remark">Remark</string>
+    <!-- Salary -->
+    <string name="pay_day">Pay Day</string>
+    <string name="salary">Salary</string>
     <string name="readme">
         This system is only available for use inside companies.
         Please contact the administrator of your company for registration.

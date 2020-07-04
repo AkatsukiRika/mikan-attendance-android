@@ -11,7 +11,9 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.mikanattendance.R;
+import com.example.mikanattendance.adapter.SalaryAdapter;
 import com.example.mikanattendance.adapter.SelectAdapter;
+import com.example.mikanattendance.base.BaseConfigurations;
 import com.example.mikanattendance.entity.Choice;
 
 import java.util.ArrayList;
@@ -76,6 +78,7 @@ public class SelectActivity extends Activity implements AdapterView.OnItemClickL
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         String token = getIntent().getStringExtra("TOKEN");
         Intent intent = new Intent();
+        boolean direct = false;
         if (userType.equals("HR")) {
             switch (position) {
                 case 0: intent = new Intent(getApplication(), InfoActivity.class); break;
@@ -87,10 +90,31 @@ public class SelectActivity extends Activity implements AdapterView.OnItemClickL
                 case 0: intent = new Intent(getApplication(), AttendanceActivity.class); break;
                 default: break;
             }
+        } else if (userType.equals("SALES")) {
+            switch (position) {
+                case 0: intent = new Intent(getApplication(), OrderActivity.class); break;
+                case 1: orderAdd(token); direct = true; break;
+                case 2: intent = new Intent(getApplication(), SalaryActivity.class); break;
+                default: break;
+            }
         }
+        if (!direct) {
+            // 放入参数
+            intent.putExtra("TOKEN", token);
+            // 跳转
+            startActivity(intent);
+        }
+    }
+
+    public void orderAdd(String token) {
+        // 获取JWTToken
+        token = getIntent().getStringExtra("TOKEN");
+
         // 放入参数
+        Intent intent = new Intent(getApplication(), OrderForm.class);
         intent.putExtra("TOKEN", token);
-        // 跳转
+        intent.putExtra("USER_ID", BaseConfigurations.userId);
+        intent.putExtra("IS_EDIT", false);
         startActivity(intent);
     }
 }
