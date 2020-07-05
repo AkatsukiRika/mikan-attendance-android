@@ -91,7 +91,7 @@ public class SalaryForm extends Activity {
         // 构建实体
         try {
             salary.setUserID(Integer.parseInt(userE.getText().toString()));
-            salary.setPayDay(Integer.parseInt(payDayE.getText().toString()));
+            salary.setPayDay(payDay);
             int salaryInt = (int) Double.parseDouble(salaryE.getText().toString()) * 100;
             salary.setSalary(salaryInt);
             salary.setRemark(remarkE.getText().toString());
