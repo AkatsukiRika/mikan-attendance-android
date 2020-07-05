@@ -31,6 +31,8 @@
         <activity android:name=".activity.SalaryActivity" />
         <activity android:name=".activity.SalaryForm" />
         <activity android:name=".activity.AttendanceList" />
+        <activity android:name=".activity.AttendanceForm" />
+        <activity android:name=".activity.AttendanceAdd" />
     </application>
 
 </manifest>

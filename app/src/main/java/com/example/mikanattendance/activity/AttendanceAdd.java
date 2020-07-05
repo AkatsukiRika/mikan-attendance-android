@@ -2,20 +2,18 @@ package com.example.mikanattendance.activity;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.DatePickerDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.RadioGroup;
 
 import com.example.mikanattendance.R;
 import com.example.mikanattendance.base.BaseConfigurations;
-import com.example.mikanattendance.entity.BasicResponse;
 import com.example.mikanattendance.entity.Attendance;
+import com.example.mikanattendance.entity.BasicResponse;
 import com.google.gson.Gson;
 
 import org.xutils.common.Callback;
@@ -26,10 +24,12 @@ import org.xutils.x;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Objects;
+import java.util.TimeZone;
 
-public class AttendanceForm extends Activity {
+public class AttendanceAdd extends Activity {
     String token;
     int atdId, userId, attendanceTime;
     String attendanceStatus, remark;
@@ -76,23 +76,52 @@ public class AttendanceForm extends Activity {
         saveB = (Button) findViewById(R.id.btnSave);
 
         // 设置每个组件的显示
-        String userIdStr = "" + userId;
+        String userIdStr = "" + BaseConfigurations.userId;
         userE.setText(userIdStr);
         // 时间处理
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String timeStr = simpleDateFormat.format(((long)attendanceTime * 1000));
         timeE.setText(timeStr);
         remarkE.setText(remark);
-        // 设定Status选中
-        int statusIndex = status.indexOf(attendanceStatus);
-        statusR.check(statusRadiosArr[statusIndex]);
-        // 设置Type选中
-        int typeIndex = type.indexOf(attendanceType);
-        typeR.check(typeRadiosArr[typeIndex]);
+        // 获取今天的上下班时间
+        long firstTimeOfDayMs = getFirstTimeOfDay((long)attendanceTime * 1000);
+        int firstTimeOfDay = (int)(firstTimeOfDayMs / 1000);
+        int timeOn = firstTimeOfDay + BaseConfigurations.onWorkTime;
+        int timeOff = firstTimeOfDay + BaseConfigurations.offWorkTime;
+
+        // 设置上下班Radio监听
+        typeR.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                if (checkedId == R.id.atdOnWork) {
+                    if (attendanceTime > timeOn) statusR.check(R.id.atdLate);
+                    else statusR.check(R.id.atdOnTime);
+                    // 设定不允许编辑
+                    findViewById(R.id.atdOnTime).setEnabled(false);
+                    findViewById(R.id.atdLate).setEnabled(false);
+                    findViewById(R.id.atdOutOfRange).setEnabled(false);
+                } else if (checkedId == R.id.atdOffWork){
+                    if (attendanceTime < timeOff) statusR.check(R.id.atdLate);
+                    else statusR.check(R.id.atdOnTime);
+                    // 设定不允许编辑
+                    findViewById(R.id.atdOnTime).setEnabled(false);
+                    findViewById(R.id.atdLate).setEnabled(false);
+                    findViewById(R.id.atdOutOfRange).setEnabled(false);
+                }
+            }
+        });
 
         // 不允许编辑
         userE.setEnabled(false);
         timeE.setEnabled(false);
+        findViewById(R.id.atdOnTime).setEnabled(false);
+        findViewById(R.id.atdLate).setEnabled(false);
+        findViewById(R.id.atdOutOfRange).setEnabled(false);
+    }
+
+    // 获取一天的开始时间
+    public long getFirstTimeOfDay(long millis){
+        return millis/(1000*3600*24)*(1000*3600*24) - TimeZone.getDefault().getRawOffset();
     }
 
     // 保存
@@ -105,7 +134,6 @@ public class AttendanceForm extends Activity {
         Attendance attendance = new Attendance();
         // 构建实体
         try {
-            attendance.setId(atdId);
             attendance.setUserID(Integer.parseInt(userE.getText().toString()));
             // Status状态设定
             int statusCheckedId = statusR.getCheckedRadioButtonId();
@@ -115,6 +143,7 @@ public class AttendanceForm extends Activity {
             int typeCheckedId = typeR.getCheckedRadioButtonId();
             int typeCheckedIndex = typeRadios.indexOf(typeCheckedId);
             attendance.setAttendanceType(type.get(typeCheckedIndex));
+            attendance.setAttendanceTime(attendanceTime);
             attendance.setRemark(remarkE.getText().toString());
         } catch (Exception e) {
             // 表格内容非法直接让用户点了没反应
@@ -124,13 +153,13 @@ public class AttendanceForm extends Activity {
         // 构建请求体
         Gson gson = new Gson();
         String jsonStr = gson.toJson(attendance);
-        Log.i("AtdUpdate#Request", jsonStr);
+        Log.i("AtdAdd#Request", jsonStr);
         params.setBodyContent(jsonStr);
 
-        x.http().request(HttpMethod.PATCH, params, new Callback.CommonCallback<String>() {
+        x.http().request(HttpMethod.POST, params, new Callback.CommonCallback<String>() {
             @Override
             public void onSuccess(String result) {
-                Log.i("AtdUpdate#Succeed", result);
+                Log.i("AtdAdd#Succeed", result);
                 BasicResponse<String> response = new Gson().fromJson(result, BasicResponse.class);
 
                 // 错误提示
@@ -143,17 +172,17 @@ public class AttendanceForm extends Activity {
 
             @Override
             public void onError(Throwable ex, boolean isOnCallback) {
-                Log.i("AtdUpdate#Error", Objects.requireNonNull(ex.getMessage()));
+                Log.i("AtdAdd#Error", Objects.requireNonNull(ex.getMessage()));
             }
 
             @Override
             public void onCancelled(CancelledException cex) {
-                Log.i("AtdUpdate#Cancelled", Objects.requireNonNull(cex.getMessage()));
+                Log.i("AtdAdd#Cancelled", Objects.requireNonNull(cex.getMessage()));
             }
 
             @Override
             public void onFinished() {
-                Log.i("AtdUpdate#Finished", "请求完成");
+                Log.i("AtdAdd#Finished", "请求完成");
 
             }
         });

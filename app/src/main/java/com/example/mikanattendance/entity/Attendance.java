@@ -1,7 +1,7 @@
 package com.example.mikanattendance.entity;
 
 public class Attendance {
-    private Integer ID;
+    private Integer id;
 
     // 外键，指向User表
     private Integer userID;
@@ -16,12 +16,12 @@ public class Attendance {
 
     private String remark;
 
-    public Integer getID() {
-        return ID;
+    public Integer getId() {
+        return id;
     }
 
-    public void setID(Integer ID) {
-        this.ID = ID;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public Integer getUserID() {

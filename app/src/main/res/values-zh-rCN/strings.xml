@@ -40,7 +40,7 @@
     <string name="attendance_status">考勤状态</string>
     <string name="attendance_type">考勤类型</string>
     <string name="status_on_time">准时</string>
-    <string name="status_late">迟到</string>
+    <string name="status_late">迟到早退</string>
     <string name="status_out">超出范围</string>
     <string name="type_on_work">上班</string>
     <string name="type_off_work">下班</string>

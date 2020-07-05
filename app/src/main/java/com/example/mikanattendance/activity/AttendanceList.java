@@ -1,6 +1,8 @@
 package com.example.mikanattendance.activity;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -28,6 +30,7 @@ import org.xutils.x;
 
 import java.io.Serializable;
 import java.lang.reflect.Type;
+import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Objects;
 
@@ -36,6 +39,7 @@ public class AttendanceList extends Activity {
     List<Attendance> attendances;
     int userID;
     String realName;
+    boolean isEdit;
     Handler handler = new Handler() {
         @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
         @Override
@@ -57,18 +61,49 @@ public class AttendanceList extends Activity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                // 放入参数
-                String token = getIntent().getStringExtra("TOKEN");
-                Intent intent = new Intent(getApplication(), AttendanceForm.class);
-
-                // 放入参数
-                intent.putExtra("TOKEN", token);
-                intent.putExtra("USER_ID", BaseConfigurations.userId);
-                intent.putExtra("ATD_TIME", attendances.get(position).getAttendanceTime());
-                intent.putExtra("ATD_STATUS", attendances.get(position).getAttendanceStatus());
-                intent.putExtra("ATD_TYPE", attendances.get(position).getAttendanceType());
-                // 跳转
-                startActivity(intent);
+                // 如果不是添加状态，而是查看状态
+                if (isEdit) {
+                    AlertDialog.Builder dialog = new AlertDialog.Builder(view.getContext());
+                    // 处理时间
+                    int atdTime = attendances.get(position).getAttendanceTime();
+                    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                    String atdTimeStr = simpleDateFormat.format(((long)atdTime * 1000));
+                    // 处理类型
+                    short atdType = attendances.get(position).getAttendanceType();
+                    String atdTypeStr = atdType == 0 ? "上班" : "下班";
+                    // 处理状态
+                    String atdStatus = attendances.get(position).getAttendanceStatus();
+                    String atdStatusStr = "";
+                    switch (atdStatus) {
+                        case "ON_TIME": atdStatusStr = "准时"; break;
+                        case "LATE": atdStatusStr = atdType == 0 ? "迟到" : "早退"; break;
+                        case "OUT_OF_RANGE": atdStatusStr = "超出范围"; break;
+                    }
+                    // 拼接Title
+                    String title = atdTimeStr + " " + atdTypeStr + atdStatusStr;
+                    String message = attendances.get(position).getRemark();
+                    dialog.setTitle(title).setMessage(message);
+                    dialog.setNegativeButton("关闭", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    });
+                    dialog.show();
+                } else {
+                    String token = getIntent().getStringExtra("TOKEN");
+                    Intent intent = new Intent(getApplication(), AttendanceForm.class);
+                    // 放入参数
+                    intent.putExtra("TOKEN", token);
+                    intent.putExtra("ATD_ID", attendances.get(position).getId());
+                    intent.putExtra("USER_ID", attendances.get(position).getUserID());
+                    intent.putExtra("ATD_TIME", attendances.get(position).getAttendanceTime());
+                    intent.putExtra("ATD_STATUS", attendances.get(position).getAttendanceStatus());
+                    intent.putExtra("ATD_TYPE", attendances.get(position).getAttendanceType());
+                    intent.putExtra("REMARK", attendances.get(position).getRemark());
+                    // 跳转
+                    startActivity(intent);
+                }
             }
         });
 
@@ -91,6 +126,7 @@ public class AttendanceList extends Activity {
         token = getIntent().getStringExtra("TOKEN");
         userID = getIntent().getIntExtra("USER_ID", 0);
         realName = getIntent().getStringExtra("REAL_NAME");
+        isEdit = getIntent().getBooleanExtra("IS_EDIT", false);
 
         // 获取全部的用户
         getAllAttendances();

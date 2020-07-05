@@ -23,6 +23,7 @@ import org.xutils.http.HttpMethod;
 import org.xutils.http.RequestParams;
 import org.xutils.x;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Objects;
 
@@ -61,7 +62,9 @@ public class SalaryForm extends Activity {
         // 设置每个组件的显示
         String userIdStr = "" + userId;
         userE.setText(userIdStr);
-        String payDayStr = "" + payDay;
+        // 时间处理
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String payDayStr = simpleDateFormat.format(((long)payDay * 1000));
         payDayE.setText(payDayStr);
         String salaryStr = "" + (double)salary / 100;
         salaryE.setText(salaryStr);

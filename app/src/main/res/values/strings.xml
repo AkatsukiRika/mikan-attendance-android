@@ -39,7 +39,7 @@
     <string name="attendance_status">Status</string>
     <string name="attendance_type">Type</string>
     <string name="status_on_time">On Time</string>
-    <string name="status_late">Late</string>
+    <string name="status_late">Not On Time</string>
     <string name="status_out">Out Of Range</string>
     <string name="type_on_work">On Work</string>
     <string name="type_off_work">Off Work</string>

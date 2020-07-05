@@ -98,6 +98,13 @@ public class SelectActivity extends Activity implements AdapterView.OnItemClickL
                 case 2: intent = new Intent(getApplication(), SalaryActivity.class); break;
                 default: break;
             }
+        } else {
+            switch (position) {
+                case 0: intent = new Intent(getApplication(), SalaryActivity.class); break;
+                case 1: intent = new Intent(getApplication(), AttendanceAdd.class); break;
+                case 2: attendanceCheck(token); direct = true; break;
+                default: break;
+            }
         }
         if (!direct) {
             // 放入参数
@@ -127,6 +134,18 @@ public class SelectActivity extends Activity implements AdapterView.OnItemClickL
         Intent intent = new Intent(getApplication(), SalaryForm.class);
         intent.putExtra("TOKEN", token);
         intent.putExtra("IS_EDIT", false);
+        startActivity(intent);
+    }
+
+    private void attendanceCheck(String token) {
+        // 获取JWTToken
+        token = getIntent().getStringExtra("TOKEN");
+
+        // 放入参数
+        Intent intent = new Intent(getApplication(), AttendanceList.class);
+        intent.putExtra("USER_ID", BaseConfigurations.userId);
+        intent.putExtra("TOKEN", token);
+        intent.putExtra("IS_EDIT", true);
         startActivity(intent);
     }
 }
